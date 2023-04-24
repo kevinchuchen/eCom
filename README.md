@@ -1,2 +1,2 @@
 # eCom
-Production ready eCommerce website with AWS Lightsail
+Production ready eCommerce site with AWS Lightsail
