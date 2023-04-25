@@ -11,8 +11,9 @@ resource "aws_lightsail_instance" "ecom_instance" {
   blueprint_id      = "wordpress"
   bundle_id         = "nano_2_0"
   key_pair_name     = local.keypair
-  user_data         = "parameterValue=$(cat bitnami_application_password) && aws ssm put-parameter --name 'eCom-dev' --value 'echo $${parameterValue}' --type 'SecureString'" #export to aws system manager and print out, install woocommerce plugin
+  user_data         = "sudo wp plugin install woocommerce --activate"
   tags = {
     env = var.env
   }
 }
+

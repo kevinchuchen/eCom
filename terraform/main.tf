@@ -10,11 +10,20 @@ data "aws_availability_zones" "available" {
 }
 
 module "lightsail_instance" {
-    source = "./modules/lightsail"
-    env = var.TFC_WORKSPACE_NAME
-    avail_zone = data.aws_availability_zones.available.names[0]
+  source = "./modules/lightsail"
+  env = var.TFC_WORKSPACE_NAME
+  avail_zone = data.aws_availability_zones.available.names[0]
 }
-
+module "IAM_user"{
+  source = "./modules/IAM"
+  env = var.TFC_WORKSPACE_NAME
+}
+module "SSM_Parameter"{
+  source = "./modules/SSM parameter"
+  IAM-access-ID = module.IAM_user.IAM-access-id
+  IAM-access-secret = module.IAM_user.IAM-access-secret
+  env = var.TFC_WORKSPACE_NAME
+}
 # module "create_networking" {
 #   source = "./modules/Networking"
 # }
